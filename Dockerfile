@@ -1,6 +1,9 @@
 FROM rocker/verse:3.5.1
 
 # Set a user and the working directory
+RUN apt-get install s6-mkdir
+RUN mkdir -p /rehhfiles
+RUN chown rstudio /rehhfiles
 USER rstudio
 WORKDIR /rehhfiles
 
