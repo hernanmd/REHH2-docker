@@ -1,13 +1,10 @@
-FROM rocker/tidyverse:3.5.1
+FROM rocker/r-ver:3.5.1
 
 # Set a user and the working directory
 RUN mkdir -p /rehhfiles
-RUN chown rstudio /rehhfiles
-USER rstudio
+# RUN chown rstudio /rehhfiles
+# USER rstudio
 WORKDIR /rehhfiles
-
-# Set the container to run `Rscript --vanilla ` by default
-# ENTRYPOINT ["/usr/local/bin/Rscript", "--save"]
 
 RUN R -e "install.packages('devtools')"
 RUN R -e "Sys.setenv(unzip='internal',tar='internal'); \
@@ -19,5 +16,7 @@ for( i in 1:length(Names) ){assign( Names[i] , paste0(baseContrib,pkgsArchives[i
 ListOfPkgs <- c(gtools,gdata ,gplots,ggplot2, rehh.data, rehh, BH, assethat,glue,magrittr,pkgconfig, R6, Rcpp, rlang, tibble, tidyselect, dplyr); \
 install.packages(ListOfPkgs,repos = NULL, type = 'source');"
 
-COPY ./rehh-runner.R ./rehh-runner.R
-RUN Rscript ./rehh-runner.R
+COPY ./rehh-runner.R /rehhfiles/rehh-runner.R
+CMD cd /rehhfiles \
+	&& R -e "source('rehh-runner.R')" \
+	&& mv /rehhfiles/a.txt ./a.txt
