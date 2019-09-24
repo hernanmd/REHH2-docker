@@ -1,25 +1,18 @@
 # rehh Workflow Script version 1.0
-
 setwd(".")
-
-list.of.packages <- c("dplyr", "gplots", "ggplot2", "rehh")
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages)) install.packages(new.packages, repos="http://cran.us.r-project.org")
 
 library(dplyr)
 library(rehh)
 library(ggplot2)
 source("rehh_patches.R")
-args<-commandArgs(TRUE)
+args <- commandArgs(TRUE)
+
+print(args)
+
 haps1 <- read.table(args[2], stringsAsFactors = FALSE)
 sample1 <- read.table(args[3], header = TRUE, stringsAsFactors = FALSE)
 haps2 <- read.table(args[4], stringsAsFactors = FALSE)
 sample2 <- read.table(args[5], header = TRUE, stringsAsFactors = FALSE)
-
-haps1 <- read.table("BD_altiplano3-1-CAl-geno-maf-exclude-chr2.PHASED.haps")
-sample1 <- read.table("BD_altiplano3-1-CAl-geno-maf-exclude-chr2.PHASED.sample", header = TRUE)
-haps2 <- read.table("BD_altiplano3-1-CBBA-geno-maf-exclude-chr2.PHASED.haps")
-sample2 <- read.table("BD_altiplano3-1-CBBA-geno-maf-exclude-chr2.PHASED.sample", header = TRUE)
 
 ############################################
 # Build MAP 1
@@ -61,7 +54,7 @@ finalMap1 <- as.matrix(cbind(maps1, freqsMatrix))
 # haps1[which(FR < 0.5),]
 #dim(finalMap)
 
-mapFileName1 <- paste0("chr-", 2 ,"-rehh_map_pop-1.txt")
+mapFileName1 <- paste0("chr-", args[1],"-rehh_map_pop-1.txt")
 
 # write to file
 write.table(
@@ -106,7 +99,7 @@ haps1 <- data.frame(haps1) %>%
   select(ind, everything())
 # write to file (necessary for rehh for some reason)
 
-tableHap1 <- paste0("chr-", 2 , "-rehh_hap_pop-1.txt") 
+tableHap1 <- paste0("chr-", args[1] , "-rehh_hap_pop-1.txt") 
 
 write.table(haps1, file = tableHap1, quote = FALSE, col.names = FALSE, row.names = FALSE)
 
@@ -150,10 +143,7 @@ finalMap2 <- as.matrix(cbind(maps2, freqsMatrix))
 # haps2[which(FR < 0.5),]
 #dim(finalMap)
 
-?cbind
-
-
-mapFileName2 <- paste0("chr-", 2 ,"-rehh_map_pop-2.txt")
+mapFileName2 <- paste0("chr-", args[1] ,"-rehh_map_pop-2.txt")
 
 # write to file
 write.table(
@@ -198,7 +188,7 @@ haps2 <- data.frame(haps2) %>%
   select(ind, everything())
 # write to file (necessary for rehh for some reason)
 
-tableHap2 <- paste0("chr-", 2 , "-rehh_hap_pop-2.txt") 
+tableHap2 <- paste0("chr-", args[1], "-rehh_hap_pop-2.txt") 
 
 write.table(haps2, file = tableHap2, quote = FALSE, col.names = FALSE, row.names = FALSE)
 
@@ -221,9 +211,9 @@ hap1 <- data2haplohh(
 			# min_maf = 0.1,
       		# min_perc_geno.hap = 95,
         	# min_perc_geno.snp = 50,
-        chr.name = 2)
+        chr.name = args[1])
 ehhScan1 <- scan_hh(hap1)
-scanFileName1 <- paste0("chr-", 2 , "-rehh_scanhh_pop-1.txt") 
+scanFileName1 <- paste0("chr-", args[1] , "-rehh_scanhh_pop-1.txt") 
 write.table(
     ehhScan1,
     file = scanFileName1)
@@ -234,13 +224,13 @@ write.table(
 # iHS 1
 ######################
 
-ihsFileName1 <- paste0("chr-", 2 , "-rehh_ihs_pop1.txt")  
+ihsFileName1 <- paste0("chr-", args[1] , "-rehh_ihs_pop1.txt")  
 ihs1 <- ihh2ihs(ehhScan1, freqbin=0.5)
 write.table(ihs1, file = ihsFileName1)
 write.csv(ihs1, file = "rehh_table_ihs_pop-1.csv")
 
-ihsFileName1Png <- paste0("chr-", 2 , "-rehh_ihs_pop-1.png") 
-ihsTitleName1 <- paste0("iHS Population 1 chr " , 2)
+ihsFileName1Png <- paste0("chr-", args[1] , "-rehh_ihs_pop-1.png") 
+ihsTitleName1 <- paste0("iHS Population 1 chr " , args[1])
 png(filename = ihsFileName1Png)
 ihsplot_mod(ihs1, plot.pval = TRUE, ylim.scan=2, main = ihsTitleName1)
 dev.off()
@@ -264,9 +254,9 @@ hap2 <- data2haplohh(
 			# min_maf = 0.1,
       		# min_perc_geno.hap = 95,
         	# min_perc_geno.snp = 50,
-        chr.name = 2)
+        chr.name = args[1])
 ehhScan2 <- scan_hh(hap2)
-scanFileName2 <- paste0("chr-", 2 , "-rehh_scanhh_pop-2.txt") 
+scanFileName2 <- paste0("chr-", args[1] , "-rehh_scanhh_pop-2.txt") 
 write.table(
     ehhScan2,
     file = scanFileName2)
@@ -277,13 +267,13 @@ write.table(
 # iHS 2
 ######################
 
-ihsFileName2 <- paste0("chr-", 2 , "-rehh_ihs_pop2.txt")  
+ihsFileName2 <- paste0("chr-", args[1] , "-rehh_ihs_pop2.txt")  
 ihs2 <- ihh2ihs(ehhScan2, freqbin=0.5)
 write.table(ihs2, file = ihsFileName2)
 write.csv(ihs2, file = "rehh_table_ihs_pop-2.csv")
 
-ihsFileName2Png <- paste0("chr-", 2 , "-rehh_ihs_pop-2.png") 
-ihsTitleName2 <- paste0("iHS Population 2 chr " , 2)
+ihsFileName2Png <- paste0("chr-", args[1] , "-rehh_ihs_pop-2.png") 
+ihsTitleName2 <- paste0("iHS Population 2 chr " , args[1])
 png(filename = ihsFileName2Png)
 ihsplot_mod(ihs2, plot.pval = TRUE, ylim.scan=2, main = ihsTitleName2)
 dev.off()

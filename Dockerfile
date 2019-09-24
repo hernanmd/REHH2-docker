@@ -2,8 +2,8 @@ FROM rocker/tidyverse:3.5.1
 
 # Set a user and the working directory
 RUN mkdir -p /rehhfiles
-RUN chown rstudio /rehhfiles
-USER rstudio
+#RUN chown rstudio /rehhfiles
+#USER rstudio
 WORKDIR /rehhfiles
 
 # Set the container to run `Rscript --vanilla ` by default
@@ -20,5 +20,4 @@ ListOfPkgs <- c(gtools,gdata ,gplots,ggplot2, rehh.data, rehh, BH, assethat,glue
 install.packages(ListOfPkgs,repos = NULL, type = 'source');"
 
 COPY ./rehh-runner.R ./rehh-runner.R
-RUN Rscript ./rehh-runner.R
-
+CMD Rscript ./rehh-runner.R $chr $pop1haps $pop1sample $pop2haps $pop2sample
