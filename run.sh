@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 image_id=$(docker images | awk '$1 ~ /rehh-runner204/ { print $3 }')
 
@@ -14,7 +14,7 @@ for i in $chrrange; do
 		-e pop1sample="$pop1$i".PHASED.sample \
 		-e pop2haps="$pop2$i".PHASED.haps \
 		-e pop2sample="$pop2$i".PHASED.sample \
-			--rm \
-			-v "$PWD":/rehhfiles \
-			-ti "$image_id"
+		--rm \
+		-v "$PWD":/rehhfiles \
+		-ti "$image_id"
 done
