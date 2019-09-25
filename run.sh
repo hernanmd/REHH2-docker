@@ -1,11 +1,18 @@
 #!/bin/sh
 
-image_id=$(docker images | awk '$1 ~ /rehh-runner204/ { print $3 }')
-
+echo "First parameter is the ancestral population file name from SHAPEIT2, WITHOUT including the chromosome number"
 pop1="$1"
 pop2="$2"
 
-chrrange=$(seq 1 29)
+# Optional argument: Maximum chromosome number
+maxchr="$3"
+
+# Obtain Docker image ID based on the published name
+image_id=$(docker images | awk '$1 ~ /rehh-runner204/ { print $3 }')
+
+# Apply the analysis on the whole genome up to maxchr
+chrrange=$(seq 1 "$maxchr")
+
 for i in $chrrange; do
 	docker run \
 		-e PASSWORD=test \
