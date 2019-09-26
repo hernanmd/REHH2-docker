@@ -226,6 +226,8 @@ write.table(
 
 ihsFileName1 <- paste0("chr-", args[1] , "-rehh_ihs_pop1.txt")  
 ihs1 <- ihh2ihs(ehhScan1, freqbin=0.5)
+ihsSerializeName1 <- paste0("chr-", args[1] , "-rehh_ihs_pop1.obj")  
+serialize(ihs1,ihsSerializeName1)
 write.table(ihs1, file = ihsFileName1)
 write.csv(ihs1, file = "rehh_table_ihs_pop-1.csv")
 
@@ -262,13 +264,14 @@ write.table(
     file = scanFileName2)
 
 
-
 ######################
 # iHS 2
 ######################
 
 ihsFileName2 <- paste0("chr-", args[1] , "-rehh_ihs_pop2.txt")  
 ihs2 <- ihh2ihs(ehhScan2, freqbin=0.5)
+ihsSerializeName2 <- paste0("chr-", args[1] , "-rehh_ihs_pop2.obj")  
+serialize(ihs2,ihsSerializeName2)
 write.table(ihs2, file = ihsFileName2)
 write.csv(ihs2, file = "rehh_table_ihs_pop-2.csv")
 

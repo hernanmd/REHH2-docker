@@ -16,6 +16,7 @@ chrrange=$(seq 1 "$maxchr")
 for i in $chrrange; do
 	docker run \
 		-e PASSWORD=test \
+		-e maxchr="$maxchr" \
 		-e chr="$i" \
 		-e pop1haps="$pop1$i".PHASED.haps \
 		-e pop1sample="$pop1$i".PHASED.sample \

@@ -7,8 +7,8 @@ cp -v "$source_path"/*.haps "$source_path"/*.sample .
 
 # Do the REHH analysis
 ./run.sh \
-	BD_altiplano3-1-CBBA-geno-maf-exclude-chr \
-	BD_altiplano3-1-CAl-geno-maf-exclude-chr \
+	LBC-chr \
+	HBC-chr \
 	29
 
 # Clean the current directory input files

@@ -17,4 +17,6 @@ ListOfPkgs <- c(gtools,gdata ,gplots,ggplot2, rehh.data, rehh, BH, assethat,glue
 install.packages(ListOfPkgs,repos = NULL, type = 'source');"
 
 COPY ./rehh-runner.R ./rehh-runner.R
-CMD Rscript ./rehh-runner.R $chr $pop1haps $pop1sample $pop2haps $pop2sample
+
+CMD Rscript ./rehh-runner.R $chr $pop1haps $pop1sample $pop2haps $pop2sample $maxchr
+#&& Rscript ./rehh-mprunner.R $chr
