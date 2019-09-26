@@ -224,7 +224,7 @@ write.table(
 # iHS 1
 ######################
 
-ihsFileName1 <- paste0("chr-", args[1] , "-rehh_ihs_pop1.txt")  
+ihsFileName1 <- paste0("chr-", args[1] , "-rehh_ihs_pop1.txt")
 ihs1 <- ihh2ihs(ehhScan1, freqbin=0.5)
 ihsSerializeName1 <- paste0("chr-", args[1] , "-rehh_ihs_pop1.obj")  
 serialize(ihs1,ihsSerializeName1)
