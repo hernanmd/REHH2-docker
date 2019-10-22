@@ -9,7 +9,8 @@ cp -v "$source_path"/*.haps "$source_path"/*.sample .
 ./run.sh \
 	LBC-chr \
 	HBC-chr \
-	29
+	29 \
+	rehh-vanilla.R
 
 # Clean the current directory input files
 rm -fv *.haps *.sample
