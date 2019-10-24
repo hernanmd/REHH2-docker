@@ -6,7 +6,7 @@ source_path="/usr/local/data/proyectos/huellas_seleccion/highlanders"
 cp -v "$source_path"/*.haps "$source_path"/*.sample .
 
 # Do the REHH analysis
-./run.sh \
+./run2pop.sh \
 	LBC-chr \
 	HBC-chr \
 	29 \
