@@ -1,7 +1,5 @@
 #!/bin/sh
 
-printf "First parameter is the ancestral population file name from SHAPEIT2, WITHOUT including the chromosome number\nSecond parameter is the problem population file name from SHAPEIT2\nThird parameter is the maximum number of chromosomes to be used\nFourth parameter is the name of the R script to use: \n\tFor no racial composition, use rehh-vanilla.R\n\tFor racial composition (5/8,3/8), use rehh-comp.R\n"
-
 pop1="$1"
 pop2="$2"
 
