@@ -1,4 +1,3 @@
 #!/bin/sh
 
-cd R3HH
-DOCKER_BUILDKIT=1 docker build -t r3hh-runner204 .
+cd R3HH && DOCKER_BUILDKIT=1 docker build -t r3hh-runner204 .
